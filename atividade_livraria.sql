@@ -1,5 +1,5 @@
 --criando um banco de dados cliente 
-create table livraria 
+create database livraria 
 --usando o banco de dados criado
 use livravia;
 --criando uma tabela da livraria 
@@ -13,35 +13,66 @@ rua nvarchar (30),
 barrio nvarchar (30),
 cidade nvarchar (30),
 estado nvarchar (30)
+);
 
-)
+insert into cliente(cod_cliente,nome)
+values 
+-- cod_cliente    nome    
+('2030616265','jose carlos'),
+('2121585895','luiz inacio'),
+('3131252621','diego rodrigo'),
+('4151618987','debora silva'),
+('5154585965','diego silva'),
+('6465877958','josimar rodrigo')
+ 
+ -- comsulta registro da tabela 
+ select * from cliente;
+
+-- buscando por atributo
+select cod_cliente from cliente;
+
+-- consultando todos cliente em uma tabela especifica: 
+--de uma forma simplificada
+
+
+-- contagem de valores de uma tabela 
+select * from cliente; 
+select count(*) as total_cliente from cliente;
+
+-- contagem de valores em uma coluna especifica
+select count(nome) as tatal_cliente from cliente;
+
+
 create table passoa_fisica(
-cod_cliente int,
-primary key (cod_cliente),foreign key (cod_cliente) references cliente(cod_cliente),
+cod_cliente nvarchar (10),
+primary key (cod_cliente),
+foreign key (cod_cliente) references cliente(cod_cliente),
 rg char (10),
 cpf char (11)
 
 )
 create table pessoa_juritica(
-cod_cliente int,
-primary key (cod_cliente), foreign key (cod_cliente) references cliente (cod_cliente),
+cod_cliente nvarchar (10),
+primary key (cod_cliente),
+foreign key (cod_cliente) references cliente (cod_cliente),
 cnpj nvarchar (14),
 ie nvarchar (12)
 
 )
 create table pedido(
 cod_pedido nchar(10) primary key,
-cod_cliente int 
-foreign key,
+cod_cliente nvarchar (10), 
+foreign key (cod_cliente) references cliente (cod_cliente), 
 data date,
 valor_pedido decimal(5,2)
 
 )
 create table item_pedido(
-cod_pedido int
-primary key(cod_pedido), foreign key (Cod_pedido) references pedido,
-cod_livro int,
-primary key (cod_livro), foreign key (cod_livro) references livo,
+cod_pedido nchar(10),
+primary key(cod_pedido),
+foreign key (Cod_pedido) references pedido (cod_pedido),
+cod_livro nvarchar(8),
+foreign key (cod_livro) references livro (cod_livro),
 qtde_pedido char(15),
 valor_item decimal (2,2)
 
@@ -66,8 +97,16 @@ autor nvarchar (20),
 )
 create table estoque(
 cod_editora int,
-primary key (cod_editora), foreign key (cod_editora) references livro,
+primary key (cod_editora), 
+foreign key (cod_editora) references livro(cod_livro),
 cod_livro int, 
 primary key (cod_livro), foreign (cod_livro) references livro,
 qtde_estoque numeric (4)
 )
+--buscando toda a tabela 
+select * from pedido;
+
+-- buscando por atributo
+select valo_pedido from pedido;
+
+-- 
