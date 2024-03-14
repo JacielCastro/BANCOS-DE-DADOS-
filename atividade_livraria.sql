@@ -35,6 +35,7 @@ select cod_cliente from cliente;
 --de uma forma simplificada
 
 
+
 -- contagem de valores de uma tabela 
 select * from cliente; 
 select count(*) as total_cliente from cliente;
@@ -67,6 +68,17 @@ data date,
 valor_pedido decimal(5,2)
 
 )
+
+create table livro(
+cod_livro nvarchar(8) primary key,
+cod_editora int,
+valor decimal(2,2),
+ano_publicacao date,
+categoria nvarchar(30),
+titulo nvarchar (20),
+autor nvarchar (20),
+
+)
 create table item_pedido(
 cod_pedido nchar(10),
 primary key(cod_pedido),
@@ -75,16 +87,6 @@ cod_livro nvarchar(8),
 foreign key (cod_livro) references livro (cod_livro),
 qtde_pedido char(15),
 valor_item decimal (2,2)
-
-)
-create table livro(
-cod_livro nvarchar(8) primary key,
-cod_editora int foreign key,
-valor decimal(2,2),
-ano_publicacao date(),
-categoria nvarchar(30),
-titulo nvarchar (20),
-autor nvarchar (20),
 
 )
  create table editora(
@@ -96,11 +98,10 @@ autor nvarchar (20),
 
 )
 create table estoque(
-cod_editora int,
-primary key (cod_editora), 
+cod_editora nvarchar (20),
 foreign key (cod_editora) references livro(cod_livro),
-cod_livro int, 
-primary key (cod_livro), foreign (cod_livro) references livro,
+cod_livro nvarchar (8), 
+foreign key (cod_livro) references livro(cod_livro),
 qtde_estoque numeric (4)
 )
 --buscando toda a tabela 
